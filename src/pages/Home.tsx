@@ -15,21 +15,12 @@ import {
 import axios from "axios";
 import "./Home.css";
 import { Todo } from "../types/todo";
+import { useTodos } from "../hooks/useTodos";
 
 const Home: React.FC = () => {
-  const [todos, setTodos] = useState<Todo[]>([]);
+  const { todos, getTodos } = useTodos();
 
-  useEffect(() => {
-    axios
-      .get<Todo[]>("https://jsonplaceholder.typicode.com/todos")
-      .then((todo) => {
-        if (todo.data) {
-          setTodos(todo.data);
-        }
-        console.log(todo.data);
-      });
-  }, []);
-  console.log(todos);
+  useEffect(() => getTodos(), [getTodos]);
 
   return (
     <IonPage>
